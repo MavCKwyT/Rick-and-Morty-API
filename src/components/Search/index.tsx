@@ -1,18 +1,31 @@
-import React from 'react';
-import { Autocomplete, TextField } from '@mui/material';
+import React, { useState } from 'react';
 
-export const Search = () => {
-  const data: unknown[] = [];
+export interface IProps {names: any, }
+export const Search = ({ names }: IProps) => {
+  // todo improve performance
+  const [search, setSearch] = useState('');
+  const handleSearch = (event: any) => {
+    setSearch(event.target.value);
+  };
+  const filterNames = (n) => {
+    if (search === '') {
+      return names;
+    }
+    return n.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+  };
+  const filteredNames = filterNames(names);
 
   return (
-    <Autocomplete
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="search"
-        />
-      )}
-      options={data}
-    />
+    <div>
+      <input
+        type="text"
+        placeholder="search..."
+        value={search}
+        onChange={(event) => handleSearch(event)}
+      />
+      <ul>
+        {filteredNames.map((item) => (<li key={item.id}>{item.name}</li>))}
+      </ul>
+    </div>
   );
 };

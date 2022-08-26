@@ -1,11 +1,9 @@
 .App {
     /* todo find the better way */
     height: 100vh;
-    overflow-x: hidden;
 }
 
 .container {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1rem;
 }

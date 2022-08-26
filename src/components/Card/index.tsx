@@ -17,7 +17,7 @@ export const Card = ({
   const [activeCard, setActiveCard] = useState('');
 
   return (
-    <>
+    <div>
       <figure onClick={() => setActiveCard(String(cardId))}>
         <a>
           <img
@@ -27,9 +27,7 @@ export const Card = ({
           <figcaption>{figcaption}</figcaption>
         </a>
       </figure>
-      <div>
-        {activeCard && (<ActiveCardModal cardId={activeCard} closeModal={() => setActiveCard('')} />)}
-      </div>
-    </>
+      {activeCard && (<ActiveCardModal cardId={activeCard} closeModal={() => setActiveCard('')} />)}
+    </div>
   );
 };
