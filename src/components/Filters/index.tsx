@@ -1,6 +1,5 @@
 import React from 'react';
 import { Search } from 'components/Search';
-import { filterData } from 'utils';
 
 interface IProps { data: any }
 export const Filters = ({ data }: IProps) => {

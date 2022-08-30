@@ -37,6 +37,7 @@ export const Main = () => {
 
   return (
     <main>
+      <h1 className="text-3xl">Text</h1>
       <Filters data={data.characters.results} />
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
         {/* {mockData.map((item) => { */}
