@@ -39,7 +39,7 @@ export const Filters = ({ data }: IProps) => {
 
   // todo improve that shit
   return (
-    <div>
+    <div className="filter">
       <ul>
         <li>
           <span>name</span>
