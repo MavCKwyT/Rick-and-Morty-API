@@ -6,7 +6,7 @@ export const Filters = ({ data }: IProps) => {
   console.log('data', data);
   const names = data.map((item) => ({ name: item.name, id: item.id }));
 
-  // todo improve that shit
+  // todo this is temporary improve that shit
   const uniqStatuses = new Set();
 
   const filteredStatuses = data.filter((item) => {

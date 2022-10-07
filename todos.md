@@ -1,0 +1,9 @@
+- [ ] find filter design
+- [ ] filter characters by name, status, species, type and gender
+- [ ] 
+- [ ] 
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]

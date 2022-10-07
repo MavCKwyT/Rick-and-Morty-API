@@ -1,57 +1,36 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Search } from 'components/Search';
 import { Card } from 'components/Card';
-import { gql, useQuery } from '@apollo/client';
-import { Filters } from 'components/Filters';
+import { loadCharactersFx } from 'models/effects';
+import { $characters } from 'models/public';
 
 export const Main = () => {
-  const getCharacters = gql`
-    query {
-        characters {
-            results {
-                id
-                name
-                image
-                status
-                gender
-                species
-                type
-            }
-        }
-    }
-  `;
+  const [search, setSearch] = useState('');
+  const [filteredNames, setFilteredNames] = useState([]);
 
-  const { data, loading } = useQuery(getCharacters);
+  useEffect(() => {
+    console.log('render');
+    $characters.watch((store) => console.log('store', store));
 
-  if (loading) {
-    return '...loading';
-  }
-
-  if (!data) {
-    return null;
-  }
-
-  /*
-    * It's possible to filter Characters by name, status, species, type and gender.
-    * The filters above can be applied all together.
-   */
+    loadCharactersFx();
+  }, []);
 
   return (
     <main>
       <h1 className="text-3xl">Text</h1>
-      <Filters data={data.characters.results} />
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
-        {/* {mockData.map((item) => { */}
-        {data.characters.results.map((item) => (
+        <Search
+          charactersData={filteredNames}
+          setSearch={setSearch}
+          search={search}
+          setFilteredNames={setFilteredNames}
+        />
+        {filteredNames.map((card: any) => (
           <Card
-            cardId={item.id}
-            key={item.id}
-            imgAlt={item.name}
-            imgUrl={item.image}
-            figcaption={item.name}
-            status={item.status}
-            species={item.species}
-            type={item.type}
-            gender={item.gender}
+            cardId={card.id}
+            imgUrl={card.image}
+            figcaption={card.name}
+            imgAlt={card.name}
           />
         ))}
       </section>

@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
-export interface IProps {names: any, }
-export const Search = ({ names }: IProps) => {
-  // todo improve performance
-  const [search, setSearch] = useState('');
-  const handleSearch = (event: any) => {
+export interface IProps {
+  charactersData: any,
+  setSearch: (characterNames: string) => void,
+  search: string,
+  setFilteredNames: any,
+}
+export const Search = ({
+  charactersData,
+  setSearch,
+  search,
+  setFilteredNames,
+}: IProps) => {
+  const filterNames = () => {
+    if (search === '') return charactersData;
+
+    return charactersData.filter((item: any) => item.name.toLowerCase().includes(search.toLowerCase()));
+  };
+  const handleChange = (event) => {
     setSearch(event.target.value);
+    const res = filterNames();
+    setFilteredNames(res);
   };
-  const filterNames = (n) => {
-    if (search === '') {
-      return names;
-    }
-    return n.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
-  };
-  const filteredNames = filterNames(names);
 
   return (
     <div>
@@ -21,11 +29,8 @@ export const Search = ({ names }: IProps) => {
         type="text"
         placeholder="search..."
         value={search}
-        onChange={(event) => handleSearch(event)}
+        onChange={(event) => handleChange(event)}
       />
-      <ul>
-        {filteredNames.map((item) => (<li key={item.id}>{item.name}</li>))}
-      </ul>
     </div>
   );
 };
