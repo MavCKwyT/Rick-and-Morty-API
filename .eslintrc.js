@@ -11,5 +11,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': 'off',
     'max-len': [1, 110, 2],
+    'arrow-body-style': 'off',
   },
 };

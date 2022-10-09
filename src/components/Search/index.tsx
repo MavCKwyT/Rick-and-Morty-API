@@ -1,27 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useEvent, useStore } from 'effector-react';
+import { $searchCharacters, searchChanged } from 'models/public';
 
-export interface IProps {
-  charactersData: any,
-  setSearch: (characterNames: string) => void,
-  search: string,
-  setFilteredNames: any,
-}
-export const Search = ({
-  charactersData,
-  setSearch,
-  search,
-  setFilteredNames,
-}: IProps) => {
-  const filterNames = () => {
-    if (search === '') return charactersData;
-
-    return charactersData.filter((item: any) => item.name.toLowerCase().includes(search.toLowerCase()));
-  };
-  const handleChange = (event) => {
-    setSearch(event.target.value);
-    const res = filterNames();
-    setFilteredNames(res);
-  };
+export const Search = () => {
+  const search = useStore($searchCharacters);
+  const handleSearch = useEvent(searchChanged);
 
   return (
     <div>
@@ -29,7 +12,7 @@ export const Search = ({
         type="text"
         placeholder="search..."
         value={search}
-        onChange={(event) => handleChange(event)}
+        onChange={(event) => handleSearch(event.target.value)}
       />
     </div>
   );

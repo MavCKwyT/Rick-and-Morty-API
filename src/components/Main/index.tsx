@@ -1,31 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Search } from 'components/Search';
 import { Card } from 'components/Card';
 import { loadCharactersFx } from 'models/effects';
-import { $characters } from 'models/public';
+import { $charactersForShow } from 'models/public';
+import { useStore } from 'effector-react';
 
 export const Main = () => {
-  const [search, setSearch] = useState('');
-  const [filteredNames, setFilteredNames] = useState([]);
+  const characters = useStore($charactersForShow);
 
   useEffect(() => {
-    console.log('render');
-    $characters.watch((store) => console.log('store', store));
-
     loadCharactersFx();
+
+    $charactersForShow.watch((store) => console.log('$charactersForShow', store));
   }, []);
 
   return (
     <main>
       <h1 className="text-3xl">Text</h1>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))' }}>
-        <Search
-          charactersData={filteredNames}
-          setSearch={setSearch}
-          search={search}
-          setFilteredNames={setFilteredNames}
-        />
-        {filteredNames.map((card: any) => (
+        <Search />
+        {characters.map((card: any) => (
           <Card
             cardId={card.id}
             imgUrl={card.image}
