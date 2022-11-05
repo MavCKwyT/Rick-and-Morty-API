@@ -1,75 +1,28 @@
 import React from 'react';
-import { Search } from 'components/Search';
+import { useStore } from 'effector-react';
+import { $characters } from 'models/public';
+import { FilterItems } from 'components/Filters/FilterItems';
+import { charactersFilterTypes } from 'components/Filters/constatns';
 
-interface IProps { data: any }
-export const Filters = ({ data }: IProps) => {
-  console.log('data', data);
-  const names = data.map((item) => ({ name: item.name, id: item.id }));
+export const Filters = () => {
+  const characters = useStore($characters);
+  console.log(characters);
 
-  // todo this is temporary improve that shit
-  const uniqStatuses = new Set();
-
-  const filteredStatuses = data.filter((item) => {
-    const duplicate = uniqStatuses.has(item.status);
-    uniqStatuses.add(item.status);
-
-    return !duplicate;
-  });
-
-  const filteredSpecies = data.filter((item) => {
-    const duplicate = uniqStatuses.has(item.species);
-    uniqStatuses.add(item.species);
-
-    return !duplicate;
-  });
-
-  const filteredTypes = data.filter((item) => {
-    const duplicate = uniqStatuses.has(item.type);
-    uniqStatuses.add(item.type);
-
-    return !duplicate;
-  });
-
-  const filteredGender = data.filter((item) => {
-    const duplicate = uniqStatuses.has(item.gender);
-    uniqStatuses.add(item.gender);
-
-    return !duplicate;
-  });
-
-  // todo improve that shit
   return (
-    <div className="filter">
-      <ul>
-        <li>
-          <span>name</span>
-          <Search names={names} />
-        </li>
-        <li>
-          <span>status</span>
-          <ul>
-            {filteredStatuses.map((item) => (<li key={item.id}>{item.status}</li>))}
-          </ul>
-        </li>
-        <li>
-          <span>species</span>
-          <ul>
-            {filteredSpecies.map((item) => (<li key={item.id}>{item.species}</li>))}
-          </ul>
-        </li>
-        <li>
-          <span>type</span>
-          <ul>
-            {filteredTypes.map((item) => (<li key={item.id}>{item.type}</li>))}
-          </ul>
-        </li>
-        <li>
-          <span>gender</span>
-          <ul>
-            {filteredGender.map((item) => (<li key={item.id}>{item.gender}</li>))}
-          </ul>
-        </li>
-      </ul>
+    <div className="filters" style={{ display: 'flex', justifyContent: 'space-between' }}>
+      {Object.values(charactersFilterTypes).map((filterType) => {
+        return (
+          <div>
+            <h3>{Object.keys(filterType)}</h3>
+            <ul>
+              {filterType.status && <FilterItems filterKey="status" filterItem="status" />}
+              {filterType.species && <FilterItems filterKey="species" filterItem="species" />}
+              {filterType.type && <FilterItems filterKey="type" filterItem="type" />}
+              {filterType.gender && <FilterItems filterKey="gender" filterItem="gender" />}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 };

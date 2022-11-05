@@ -5,4 +5,5 @@ export interface ICharactersAPI {
   name: string,
   species: string,
   status: string,
+  type: string,
 }

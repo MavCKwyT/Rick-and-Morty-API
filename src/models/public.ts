@@ -5,6 +5,7 @@ import { loadCharactersFx } from 'models/effects';
 export const $characters = createStore<ICharactersAPI[]>([]);
 export const $searchCharacters = createStore('');
 export const searchChanged = createEvent<string>();
+export const $characterFiltersTypes = createStore([]);
 
 $characters.on(loadCharactersFx.doneData, (_, characters) => characters.results);
 $searchCharacters.on(searchChanged, (_, search) => search);

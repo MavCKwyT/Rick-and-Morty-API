@@ -26,5 +26,6 @@
     ".eslintrc.js",
     "package.json",
     "tailwind.config.js",
+    "webpack.config.js",
   ]
 }

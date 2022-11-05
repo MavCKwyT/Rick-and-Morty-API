@@ -9,3 +9,9 @@ export const loadCharactersFx = createEffect(async () => {
 
   throw await response.json();
 });
+
+export const loadCharacterByFiltersType = createEffect(async (filterType: string) => {
+  const response = await fetch(`https://rickandmortyapi.com/api/character/?${filterType}`, {
+
+  });
+});
